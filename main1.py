@@ -3,9 +3,9 @@ read_coordinate_file(filename)#M
 
 plot_points(coord_list)#J
 
-construct_graph_connections(coord_list, radius)
+construct_graph_connections(coord_list, radius) #J
 
-n construct_graph(indices, distance, N)
+n construct_graph(indices, distance, N) #M
 
 csr_matrix((data, ij), shape=(M, N))
 
