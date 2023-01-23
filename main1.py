@@ -1,8 +1,7 @@
 
-read_coordinate_file(filename)
+read_coordinate_file(filename)#M
 
-
-plot_points(coord_list)
+plot_points(coord_list)#J
 
 construct_graph_connections(coord_list, radius)
 
