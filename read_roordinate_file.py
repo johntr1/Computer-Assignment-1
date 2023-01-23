@@ -4,5 +4,6 @@ def read_coordinate_file(filename):
     with open(f'{filename}',mode='r') as file:
         coors=file.read()
         print(coors)
+        print('hej')
 
 read_coordinate_file('SampleCoordinates.txt')
