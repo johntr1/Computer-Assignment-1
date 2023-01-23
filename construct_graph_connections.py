@@ -20,13 +20,17 @@ def construct_graph_connections(coord_list, radius):
             y1 = coord_list[i, 1]
             x2 = coord_list[j, 0]
             y2 = coord_list[j, 1]
-            # Distance formula: distance=√((x2 – x1)² + (y2 – y1)²)
+            # Distance formula: distance=√((x2 – x1)² + (y2 – y1)²) (taken from maths book)
             distance = np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+            # Define indices as reverse to control duplicate connections
             indices = [i, j]
             indices.reverse()
+            # Checks for radius and that it is not the same coordinate
             if distance <= radius and distance != 0:
+                # Controls for duplicates in the indices list
                 if indices in li_indices:
                     pass
+                # Append the indices and distance if all requirements are met
                 else:
                     li_indices.append([i, j])
                     li_distance.append(distance)
