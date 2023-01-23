@@ -29,9 +29,10 @@ def read_coordinate_file(filename):
             ab[int(n/2)][1]=i
         n+=1
     R=1
-    coor=np.empty(shape, dtype=float)
+    coor=np.zeros(shape, dtype=float)
     print(ab)
-    coor[:][0]=R*np.pi*ab[:][1]/180
-    coor[:][1]=R*np.log(np.tan(np.pi/4 + np.pi*ab[:][0]/360))
+    for a in range(len(ab)):
+        coor[a][0]=R*np.pi*ab[a][1]/180
+        coor[a][1]=R*np.log(np.tan(np.pi/4 + np.pi*ab[a][0]/180))
     print(coor)
 read_coordinate_file('SampleCoordinates.txt')
