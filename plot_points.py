@@ -8,7 +8,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_points(coord_list):
+
+def plot_points(coord_list, indices):
     # Define empty lists
     x = []
     y = []
