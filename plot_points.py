@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_points(coord_list, indices):
+def plot_points(coord_list):
     # Define empty lists
     x = []
     y = []
@@ -19,5 +19,5 @@ def plot_points(coord_list, indices):
         y.append(coord_list[i, 1])
 
     # Plots the function
-    plt.plot(x, y)
+    plt.plot(x, y, 'o', color='red')
     plt.show()

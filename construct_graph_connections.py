@@ -4,7 +4,7 @@
 # radius : radius to determine which cities connect
 # Output:
 # ndarray with indices of each connected city and another array with distance between them
-
+import numpy as np
 def construct_graph_connections(coord_list, radius):
     li_indices = []
     li_distance = []
@@ -30,4 +30,4 @@ def construct_graph_connections(coord_list, radius):
                     li_indices.append([i, j])
                     li_distance.append(distance)
 
-    return [li_indices, li_distance]
+    return li_indices, li_distance

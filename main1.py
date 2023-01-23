@@ -1,14 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+from read_coordinate_file import *
+from plot_points import *
+from construct_graph_connections import *
 
-read_coordinate_file(filename)#M
+filename = 'SampleCoordinates.txt'''
+radius = 0.08
+coord_list = read_coordinate_file(filename)  # M
 
-plot_points(coord_list)#J
+plot_points(coord_list)  # J
 
-construct_graph_connections(coord_list, radius) #J
+li_indices, li_distance = construct_graph_connections(coord_list, radius)  # J
+print(li_indices)
+print(li_distance)
 
-n construct_graph(indices, distance, N) #M
+construct_graph(indices, distance, N)  # M
 
 csr_matrix((data, ij), shape=(M, N))
 
