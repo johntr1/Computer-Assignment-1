@@ -34,5 +34,4 @@ def read_coordinate_file(filename):
     for a in range(len(ab)):
         coor[a][0]=R*np.pi*ab[a][1]/180
         coor[a][1]=R*np.log(np.tan(np.pi/4 + np.pi*ab[a][0]/180))
-    print(coor)
-read_coordinate_file('SampleCoordinates.txt')
+    return coor
