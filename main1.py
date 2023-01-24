@@ -10,17 +10,13 @@ filename = 'HungaryCities.txt'
 radius = 0.005
 coord_list = read_coordinate_file(filename)  # M
 
-plot_points(coord_list)  # J
-
 li_indices, li_distance = construct_graph_connections(coord_list, radius)  # J
-print(li_indices)
-print(li_distance)
+
+plot_points(coord_list, li_indices)
 
 construct_graph(indices, distance, N)  # M
 
 csr_matrix((data, ij), shape=(M, N))
-
-plot_points(coord_list, indices)
 
 find_shortest_path(graph, start_node, end_node)
 
