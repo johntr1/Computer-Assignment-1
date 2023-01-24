@@ -8,10 +8,13 @@ from construct_graph_connections import *
 
 filename = 'HungaryCities.txt'
 radius = 0.005
+print("Read_coordinate_file")
 coord_list = read_coordinate_file(filename)  # M
 
+print("construct_graph_connections")
 li_indices, li_distance = construct_graph_connections(coord_list, radius)  # J
 
+print("plot_points")
 plot_points(coord_list, li_indices)
 
 construct_graph(indices, distance, N)  # M
