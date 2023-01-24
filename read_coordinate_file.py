@@ -27,7 +27,7 @@ def read_coordinate_file(filename):
     shape=(int(len(l)/2),2)
     ab=np.empty(shape, dtype=float)
     n=0
-    #A for loop that fills the array with as [a b]
+    #A for loop that fills the array with as [a b] from the list made
     for i in l:
         i=float(i)
         if n%2==0:
@@ -37,7 +37,6 @@ def read_coordinate_file(filename):
         n+=1
     R=1
     coor=np.zeros(shape, dtype=float)
-    print(ab)
     for a in range(len(ab)):
         coor[a][0]=R*np.pi*ab[a][1]/180
         coor[a][1]=R*np.log(np.tan(np.pi/4 + np.pi*ab[a][0]/360))
