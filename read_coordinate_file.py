@@ -1,4 +1,11 @@
+# Function name: read_coordinate_file
+# Input: File with the data for the coordinates given in degrees
+# Output: An array with the coordiantes given in x and y format
+
+
 import numpy as np
+
+
 def read_coordinate_file(filename):
     #Open file in read mode and get data
     with open(f'{filename}',mode='r') as file:
