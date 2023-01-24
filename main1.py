@@ -5,6 +5,7 @@ from read_coordinate_file import *
 from plot_points import *
 from construct_graph_connections import *
 
+
 filename = 'HungaryCities.txt'
 radius = 0.08
 coord_list = read_coordinate_file(filename)  # M
