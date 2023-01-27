@@ -26,7 +26,7 @@ print(N)
 
 plot_points(coord_list, li_indices)
 
-construct_graph(li_indices, li_distance, N)  # M
+graph=construct_graph(li_indices, li_distance, N)  # M
 
 
 
