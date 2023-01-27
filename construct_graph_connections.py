@@ -8,8 +8,8 @@ import numpy as np
 def construct_graph_connections(coord_list, radius):
     li_indices = []
     li_distance = []
-    for i in range(len(coord_list)):
-        for j in range(len(coord_list)):
+    for i, element in enumerate(coord_list):
+        for j, j_element in enumerate(coord_list):
             # Checks for reverse order duplicates and skips if true
             if i > j:
                 continue
