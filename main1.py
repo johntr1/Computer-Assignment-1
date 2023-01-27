@@ -22,7 +22,6 @@ end = time.time()
 
 print(end-start)
 N=len(li_indices)
-print(N)
 
 plot_points(coord_list, li_indices)
 
