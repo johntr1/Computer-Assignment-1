@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 from scipy.sparse import csr_matrix
 
 from read_coordinate_file import *
@@ -15,12 +16,14 @@ coord_list = read_coordinate_file(filename)  # M
 
 
 print("construct_graph_connections")
+start = time.time()
 li_indices, li_distance = construct_graph_connections(coord_list, radius)  # J
+end = time.time()
 
+print(end-start)
 N=len(li_indices)
 print(N)
 
-print("plot_points")
 #plot_points(coord_list, li_indices)
 
 construct_graph(li_indices, li_distance, N)  # M
