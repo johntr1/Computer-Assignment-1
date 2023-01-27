@@ -24,7 +24,7 @@ print(end-start)
 N=len(li_indices)
 print(N)
 
-#plot_points(coord_list, li_indices)
+plot_points(coord_list, li_indices)
 
 construct_graph(li_indices, li_distance, N)  # M
 

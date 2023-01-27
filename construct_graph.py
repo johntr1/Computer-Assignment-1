@@ -10,4 +10,3 @@ def construct_graph(indices, distance, N):
     row=indicesT[0][:]
     col=indicesT[1][:]
     csr=csr_matrix((data, (row, col)), shape=(900, N))
-
