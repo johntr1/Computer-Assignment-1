@@ -7,6 +7,21 @@ from scipy.sparse.csgraph import shortest_path
 def find_shortest_path(graph, start_node, end_node):
     dist_matrix, predecessors = shortest_path(graph, method='D', directed=False, return_predecessors=True, indices=start_node)
     path_distance = dist_matrix[end_node]
-    print(dist_matrix)
+    print(path_distance)
     print(predecessors)
+
+    # Var uttråkad på kvällen så kodade lite här
+    path = [end_node]
+    i = end_node
+    while i != start_node:
+        node = predecessors[i]
+        path.append(node)
+        i = predecessors[i]
+
+    path.reverse()
+    return path, path_distance
+
+
+
+
 

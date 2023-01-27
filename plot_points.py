@@ -45,5 +45,5 @@ def plot_points(coord_list, indices, path):
 
     # Plot the red dots in the graph
     plt.plot(x, y, 'o', color='red')
-    plt.plot(x_path, y_path, color='blue', linewidth='5')
+    plt.plot(x_path, y_path, color='blue', linewidth='2.5')
     plt.show()
