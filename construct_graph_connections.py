@@ -10,6 +10,7 @@ def construct_graph_connections(coord_list, radius):
     li_distance = []
     for i in range(len(coord_list)):
         for j in range(len(coord_list)):
+
             # Define the x and y for the distance formula for readability
             x1 = coord_list[i, 0]
             y1 = coord_list[i, 1]
@@ -24,7 +25,7 @@ def construct_graph_connections(coord_list, radius):
             if distance <= radius and distance != 0:
                 # Controls for duplicates in the indices list (NEEDS TO BE FIXED FOR PERFORMANCE)
                 #if indices in li_indices:
-                 #   continue
+                #    continue
                 # Append the indices and distance if all requirements are met
                 #else:
                 li_indices.append([i, j])
