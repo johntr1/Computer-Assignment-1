@@ -25,13 +25,13 @@ li_indices, li_distance = construct_graph_connections(coord_list, radius)  # J
 
 # N is the amount of cities
 N=len(coord_list)
-print(N)
 
 graph=construct_graph(li_indices, li_distance, N)  # M
 
 
 print("find_shortest_path")
 path, path_distance = find_shortest_path(graph, start_node, end_node)
+
 
 print("plot_points")
 plot_points(coord_list, li_indices, path)
