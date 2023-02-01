@@ -36,7 +36,6 @@ construct_graph_connections_time = end-start
 
 # N is the amount of cities
 N=len(coord_list)
-print(N)
 
 start = time.time()
 
