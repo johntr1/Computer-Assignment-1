@@ -28,3 +28,4 @@ def construct_graph_connections(coord_list, radius):
     li_indices = np.array(li_indices)
     li_distance = np.array(li_distance)
     return li_indices, li_distance
+
