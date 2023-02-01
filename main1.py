@@ -11,10 +11,10 @@ from construct_graph import *
 from find_shortest_path import *
 
 
-filename = 'HungaryCities.txt'
-radius = 0.005
-start_node = 311
-end_node = 702
+filename = 'GermanyCities.txt'
+radius = 0.0025
+start_node = 31
+end_node = 2
 
 start = time.time()
 

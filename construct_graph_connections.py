@@ -5,6 +5,7 @@
 # Output:
 # ndarray with indices of each connected city and another array with distance between them
 import numpy as np
+import math
 def construct_graph_connections(coord_list, radius):
     li_indices = []
     li_distance = []
@@ -19,7 +20,7 @@ def construct_graph_connections(coord_list, radius):
             x2 = j_element[0]
             y2 = j_element[1]
             # Distance formula: distance=√((x2 – x1)² + (y2 – y1)²) (taken from maths book)
-            distance = np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+            distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
             # Checks for radius and that it is not the same coordinate
             if distance <= radius:
                 li_indices.append([i, j])
