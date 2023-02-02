@@ -28,5 +28,7 @@ def construct_graph_connections(coord_list, radius):
     # Convert the lists to ndarrays
     li_indices = np.array(li_indices)
     li_distance = np.array(li_distance)
+    print(li_indices)
+    print(li_distance)
     return li_indices, li_distance
 

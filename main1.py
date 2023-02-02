@@ -3,18 +3,20 @@ import matplotlib.pyplot as plt
 import time
 from scipy.sparse import csr_matrix
 from tabulate import tabulate
+from scipy import spatial
 
 from read_coordinate_file import *
 from plot_points import *
 from construct_graph_connections import *
 from construct_graph import *
 from find_shortest_path import *
+from construct_fast_graph_connections import *
 
 
-filename = 'GermanyCities.txt'
-radius = 0.0025
-start_node = 31
-end_node = 2
+filename = 'SampleCoordinates.txt'
+radius = 0.08
+start_node = 0
+end_node = 5
 
 start = time.time()
 
