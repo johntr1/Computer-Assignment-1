@@ -29,7 +29,7 @@ read_coordinate_file_time = end-start
 print("construct_graph_connections")
 
 start = time.time()
-
+print(coord_list)
 li_indices, li_distance = construct_graph_connections(coord_list, radius)  # J
 
 end = time.time()
