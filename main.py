@@ -59,9 +59,22 @@ def read_coordinate_file(FILENAME):
     return coor
 
 
-def construct_graph_connections(coord_list, radius):
+def construct_graph_connections(coord_list, RADIUS):
+    """This function computes all connections between the cities' coordinates given a radius.
+    Parameters:
+        coord_list (ndarray): 2D ndarray of the cities' coordinates
+        RADIUS (int): Number that describes the allowed radius between two cities to establish a connection
+
+    Returns:
+        li_indices (ndarray): A 2D ndarray with the connected cities' indices
+        li_distance (ndarray): An ndarray with the distance between the connected distance
+    """
+
+    # Define empty lists
     li_indices = []
     li_distance = []
+
+    # Loops through the enumerated coord_list twice with nestled loops
     for i, i_element in enumerate(coord_list):
         for j, j_element in enumerate(coord_list):
             # Checks for reverse order duplicates and skips if true
@@ -74,8 +87,9 @@ def construct_graph_connections(coord_list, radius):
             y2 = j_element[1]
             # Distance formula: distance=√((x2 – x1)² + (y2 – y1)²) (taken from maths book)
             distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-            # Checks for radius and that it is not the same coordinate
-            if distance <= radius:
+            # Checks if the distance between the two cities are fulfilling the radius requirement
+            # Appends the list of indices and the distance between them if true
+            if distance <= RADIUS:
                 li_indices.append([i, j])
                 li_distance.append(distance)
     # Convert the lists to ndarrays
@@ -128,6 +142,14 @@ def find_shortest_path(graph, start_node, end_node):
 
 
 def plot_points(coord_list, indices, path):
+    """This function plots the cities' coordinates as red nodes, the connected lines between the connected cities as grey lines and the shortest path to take between the start city to the end city as a blue line
+    Parameters:
+        coord_list (ndarray): 2D ndarray of the cities' coordinates
+        indices (ndarray): 2D ndarray of pairs of connected cities represented as indices
+        path (list): A 1xN list that describes the shortest path from start- to end city
+    Returns:
+        A figure showing the shortest path between two cities in a country
+    """
     # Define empty lists
     x = []
     y = []
@@ -162,10 +184,16 @@ def plot_points(coord_list, indices, path):
     # Plot the red dots in the graph
     plt.plot(x, y, 'o', color='red')
     plt.plot(x_path, y_path, color='blue', linewidth='2.5')
+    plt.title('Shortest Path')
     plt.show()
 
 
 # The main code
+
+# For every function, a timer will be taken between each one of them. This is represented with a start = time.time()
+# and an end = time.time() whereas the function is inbetween.
+
+# Call read_coordinate_file and time its running time
 start = time.time()
 
 coord_list = read_coordinate_file(FILENAME)  # M
@@ -174,6 +202,7 @@ end = time.time()
 
 read_coordinate_file_time = end - start
 
+# Call construct_graph_connections or construct_fast_graph_connections and time its running time
 start = time.time()
 
 # li_indices, li_distance = construct_graph_connections(coord_list, RADIUS) # J
@@ -183,6 +212,7 @@ li_indices, li_distance = construct_fast_graph_connections(coord_list, RADIUS)
 end = time.time()
 
 construct_graph_connections_time = end - start
+
 
 # N is the amount of cities
 N = len(coord_list)
