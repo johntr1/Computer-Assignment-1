@@ -23,13 +23,18 @@ END_NODE = 2
 
 # Collection of all written functions for this assignment
 def read_coordinate_file(FILENAME):
+    """This function reads a given file and parses the result into an array:
+           FILENAME (string): The name of the file which the data is taken from.
+
+       Returns:
+           coord_list (ndarray): A 2D ndarray with the x and y coordinates of the cities.
+       """
     # Open file in read mode and get data
     with open(f'{FILENAME}', mode='r') as file:
         line = file.readline()
         # An empty string that can save the degree coordinates in
         l = ''
-        while line:  # A while loop for each line in the file
-            # Removes everything that't not a number or a .
+        while line:   # Removes everything that't not a number
             line = line.replace('{', '')
             line = line.replace('}', '')
             line = line.replace('\n', ',')
@@ -53,7 +58,7 @@ def read_coordinate_file(FILENAME):
         n += 1
     R = 1
     coor = np.zeros(shape, dtype=float)
-    for a in range(len(ab)):
+    for a in enumerate(ab): #A calculation loop to convert from degrees to x and y coordinates
         coor[a][0] = R * np.pi * ab[a][1] / 180
         coor[a][1] = R * np.log(np.tan(np.pi / 4 + np.pi * ab[a][0] / 360))
     return coor
@@ -63,7 +68,7 @@ def construct_graph_connections(coord_list, RADIUS):
     """This function computes all connections between the cities' coordinates given a radius.
     Parameters:
         coord_list (ndarray): 2D ndarray of the cities' coordinates
-        RADIUS (int): Number that describes the allowed radius between two cities to establish a connection
+        RADIUS (float): Number that describes the allowed radius between two cities to establish a connection
 
     Returns:
         li_indices (ndarray): A 2D ndarray with the connected cities' indices
@@ -99,10 +104,23 @@ def construct_graph_connections(coord_list, RADIUS):
 
 
 def construct_fast_graph_connections(coord_list, RADIUS):
+    """This function computes all connections between the cities' coordinates given a radius.
+    Parameters:
+        coord_list (ndarray): 2D ndarray of the cities' coordinates
+        RADIUS (float): Number that describes the allowed radius between two cities to establish a connection
+
+    Returns:
+        li_indices (ndarray): A 2D ndarray with the connected cities' indices
+        li_distance (ndarray): An ndarray with the distance between the connected distance
+    """
+
     li_indices = []
     li_distance = []
+    #Makes a KDTree then finds the points which are within the radius for each point
     tree = spatial.cKDTree(coord_list)
     indices = tree.query_ball_point(coord_list, r=RADIUS)
+    # For loop that converts the information to later make an array
+    # also calculates and matches the distance with the connections
     for a, j in enumerate(indices):
         for i in j:
             if a > i:
@@ -111,12 +129,24 @@ def construct_fast_graph_connections(coord_list, RADIUS):
             distance = math.sqrt(
                 (coord_list[a][0] - coord_list[i][0]) ** 2 + (coord_list[a][1] - coord_list[i][1]) ** 2)
             li_distance.append(distance)
+
     li_indices = np.array(li_indices)
     li_distance = np.array(li_distance)
     return li_indices, li_distance
 
 
 def construct_graph(indices, distance, N):
+    """This function constructs a sparse graph (csr matrix) of the coordinates between two cities and their distance between them.
+        Parameters:
+            indices (ndarray): A 2D ndarray with the connected cities' indices
+            distance (ndarray): An ndarray with the distance between the connected distance
+            N (int) = The amount of cities
+
+        Returns:
+            csr (ndarray)= The cities connected as indexes and their distance between them as the value
+        """
+
+    #Changes the format so csr_matrix function can be used
     indicesT = indices.T
     data = distance
     row = indicesT[0][:]
@@ -126,12 +156,24 @@ def construct_graph(indices, distance, N):
 
 
 def find_shortest_path(graph, start_node, end_node):
+    """This function constructs a sparse graph (csr matrix) of the coordinates between two cities and their distance between them.
+            Parameters:
+                csr (ndarray)= The cities connected as indexes and their distance between them as the value
+                start_node (int) = The city where the route starts
+                end_node (int) = The city where the route ends
+
+            Returns:
+                path (list)= The shortest path from the start node to the end note
+                path_distance (float) = The distance of the shortest path taken
+            """
+    #Uses the crs matrix
     dist_matrix, predecessors = shortest_path(graph, method='D', directed=False, return_predecessors=True,
                                               indices=start_node)
     path_distance = dist_matrix[end_node]
 
     path = [end_node]
     i = end_node
+    #While loop that goes backwards using predecessors to find the path taken
     while i != start_node:
         node = predecessors[i]
         path.append(node)
