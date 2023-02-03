@@ -13,10 +13,10 @@ from find_shortest_path import *
 from construct_fast_graph_connections import *
 
 
-filename = 'SampleCoordinates.txt'
-radius = 0.08
-start_node = 0
-end_node = 5
+filename = 'GermanyCities.txt'
+radius = 0.0025
+start_node = 31
+end_node = 2
 
 start = time.time()
 
@@ -30,8 +30,9 @@ print("construct_graph_connections")
 
 start = time.time()
 print(coord_list)
-li_indices, li_distance = construct_graph_connections(coord_list, radius)  # J
+# li_indices, li_distance = construct_graph_connections(coord_list, radius) # J
 
+li_indices, li_distance = construct_fast_graph_connections(coord_list, radius)
 end = time.time()
 
 construct_graph_connections_time = end-start
@@ -71,6 +72,4 @@ table = [["Functions", "Time (s)"], ["read_coordinate_file", read_coordinate_fil
 
 print(tabulate(table))
 
-start = time.time()
-construct_fast_graph_connections(coord_list, radius)
-end = time.time()
+

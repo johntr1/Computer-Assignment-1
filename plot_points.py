@@ -36,8 +36,7 @@ def plot_points(coord_list, indices, path):
         x_path.append(x[path_element])
         y_path.append(y[path_element])
 
-
-    # Use the function LineCollection to further optimize the program
+    # Use the function LineCollection to plot the connected lines
     lc = LineCollection(li, colors='grey')
     fig, ax = plt.subplots()
     # Add the Linecollection to the axis so that it shows in the figure
@@ -45,5 +44,7 @@ def plot_points(coord_list, indices, path):
 
     # Plot the red dots in the graph
     plt.plot(x, y, 'o', color='red')
+
+    # Plot the shortest path in the color blue
     plt.plot(x_path, y_path, color='blue', linewidth='2.5')
     plt.show()
