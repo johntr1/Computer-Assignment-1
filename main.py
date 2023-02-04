@@ -58,7 +58,7 @@ def read_coordinate_file(FILENAME):
         n += 1
     R = 1
     coor = np.zeros(shape, dtype=float)
-    for a in enumerate(ab):  # A calculation loop to convert from degrees to x and y coordinates
+    for a,b in enumerate(ab):  # A calculation loop to convert from degrees to x and y coordinates
         coor[a][0] = R * np.pi * ab[a][1] / 180
         coor[a][1] = R * np.log(np.tan(np.pi / 4 + np.pi * ab[a][0] / 360))
     return coor
