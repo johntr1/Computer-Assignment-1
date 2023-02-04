@@ -34,7 +34,7 @@ def read_coordinate_file(FILENAME):
         line = file.readline()
         # An empty string that can save the degree coordinates in
         l = ''
-        while line:   # Removes everything that't not a number
+        while line:  # Removes everything that's not a number
             line = line.replace('{', '')
             line = line.replace('}', '')
             line = line.replace('\n', ',')
@@ -58,7 +58,7 @@ def read_coordinate_file(FILENAME):
         n += 1
     R = 1
     coor = np.zeros(shape, dtype=float)
-    for a in enumerate(ab): #A calculation loop to convert from degrees to x and y coordinates
+    for a in enumerate(ab):  # A calculation loop to convert from degrees to x and y coordinates
         coor[a][0] = R * np.pi * ab[a][1] / 180
         coor[a][1] = R * np.log(np.tan(np.pi / 4 + np.pi * ab[a][0] / 360))
     return coor
@@ -116,7 +116,7 @@ def construct_fast_graph_connections(coord_list, RADIUS):
 
     li_indices = []
     li_distance = []
-    #Makes a KDTree then finds the points which are within the radius for each point
+    # Makes a KDTree then finds the points which are within the radius for each point
     tree = spatial.cKDTree(coord_list)
     indices = tree.query_ball_point(coord_list, r=RADIUS)
     # For loop that converts the information to later make an array
@@ -146,7 +146,7 @@ def construct_graph(indices, distance, N):
             csr (ndarray)= The cities connected as indexes and their distance between them as the value
         """
 
-    #Changes the format so csr_matrix function can be used
+    # Changes the format so csr_matrix function can be used
     indicesT = indices.T
     data = distance
     row = indicesT[0][:]
@@ -166,15 +166,15 @@ def find_shortest_path(graph, start_node, end_node):
                 path (list)= The shortest path from the start node to the end note
                 path_distance (float) = The distance of the shortest path taken
             """
-    #Uses the crs matrix, with directed=false as we don't have any duplicates
-    #predecessors=true because we want the path taken, choosing Dijkstra’s algorithm
+    # Uses the crs matrix, with directed=false as we don't have any duplicates
+    # predecessors=true because we want the path taken, choosing Dijkstra’s algorithm
     dist_matrix, predecessors = shortest_path(graph, method='D', directed=False, return_predecessors=True,
                                               indices=start_node)
     path_distance = dist_matrix[end_node]
 
     path = [end_node]
     i = end_node
-    #While loop that goes backwards using predecessors to find the path taken
+    # While loop that goes backwards using predecessors to find the path taken
     while i != start_node:
         node = predecessors[i]
         path.append(node)
@@ -257,10 +257,8 @@ end = time.time()
 
 construct_graph_connections_time = end - start
 
-
 # N is the amount of cities
 N = len(coord_list)
-
 
 # Call construct_graph and time it
 start = time.time()
@@ -291,6 +289,7 @@ plot_points_time = end - start
 
 # Save table with recorded times for each function to later print it out
 table = [["Functions", "Time (s)"], ["read_coordinate_file", read_coordinate_file_time],
-         ["construct_(fast)_graph_connections", construct_graph_connections_time], ["construct_graph", construct_graph_time],
+         ["construct_(fast)_graph_connections", construct_graph_connections_time],
+         ["construct_graph", construct_graph_time],
          ["find_shortest_path", find_shortest_path_time], ["plot_points", plot_points_time]]
 print(tabulate(table))
