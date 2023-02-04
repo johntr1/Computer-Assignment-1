@@ -166,7 +166,8 @@ def find_shortest_path(graph, start_node, end_node):
                 path (list)= The shortest path from the start node to the end note
                 path_distance (float) = The distance of the shortest path taken
             """
-    #Uses the crs matrix
+    #Uses the crs matrix, with directed=false as we don't have any duplicates
+    #predecessors=true because we want the path taken
     dist_matrix, predecessors = shortest_path(graph, method='D', directed=False, return_predecessors=True,
                                               indices=start_node)
     path_distance = dist_matrix[end_node]
