@@ -248,6 +248,7 @@ read_coordinate_file_time = end - start
 # Call construct_graph_connections or construct_fast_graph_connections and time its running time
 start = time.time()
 
+# Replace this function with the function below to alternate between fast or slow
 # li_indices, li_distance = construct_graph_connections(coord_list, RADIUS) # J
 
 li_indices, li_distance = construct_fast_graph_connections(coord_list, RADIUS)
@@ -260,6 +261,8 @@ construct_graph_connections_time = end - start
 # N is the amount of cities
 N = len(coord_list)
 
+
+# Call construct_graph and time it
 start = time.time()
 
 graph = construct_graph(li_indices, li_distance, N)  # M
@@ -268,6 +271,7 @@ end = time.time()
 
 construct_graph_time = end - start
 
+# Call find_shortest_path and time it
 start = time.time()
 
 path, path_distance = find_shortest_path(graph, START_NODE, END_NODE)
@@ -276,6 +280,7 @@ end = time.time()
 
 find_shortest_path_time = end - start
 
+# Call plot_points and time it
 start = time.time()
 
 plot_points(coord_list, li_indices, path)
@@ -284,8 +289,8 @@ end = time.time()
 
 plot_points_time = end - start
 
+# Save table with recorded times for each function to later print it out
 table = [["Functions", "Time (s)"], ["read_coordinate_file", read_coordinate_file_time],
          ["construct_(fast)_graph_connections", construct_graph_connections_time], ["construct_graph", construct_graph_time],
          ["find_shortest_path", find_shortest_path_time], ["plot_points", plot_points_time]]
-
 print(tabulate(table))
