@@ -58,7 +58,7 @@ def read_coordinate_file(FILENAME):
         n += 1
     R = 1
     coor = np.zeros(shape, dtype=float)
-    for a,b in enumerate(ab):  # A calculation loop to convert from degrees to x and y coordinates
+    for a, b in enumerate(ab):  # A calculation loop to convert from degrees to x and y coordinates
         coor[a][0] = R * np.pi * ab[a][1] / 180
         coor[a][1] = R * np.log(np.tan(np.pi / 4 + np.pi * ab[a][0] / 360))
     return coor
@@ -147,10 +147,10 @@ def construct_graph(indices, distance, N):
         """
 
     # Changes the format so csr_matrix function can be used
-    indicesT = indices.T
+    indices_T = indices.T
     data = distance
-    row = indicesT[0][:]
-    col = indicesT[1][:]
+    row = indices_T[0][:]
+    col = indices_T[1][:]
     csr = csr_matrix((data, (row, col)), shape=(N, N))
     return csr
 
@@ -218,16 +218,19 @@ def plot_points(coord_list, indices, path):
         x_path.append(x[path_element])
         y_path.append(y[path_element])
 
-    # Use the function LineCollection to further optimize the program
-    lc = LineCollection(li, colors='grey')
+    # Plot the red dots in the graph
     fig, ax = plt.subplots()
+    plt.plot(x, y, 'o', markersize=3, color='red')
+    plt.title('Shortest Path')
+
+    # Use the function LineCollection to further optimize the program
+    lc = LineCollection(li, colors='grey', linewidths=0.8)
     # Add the Linecollection to the axis so that it shows in the figure
     ax.add_collection(lc)
 
-    # Plot the red dots in the graph
-    plt.plot(x, y, 'o', color='red')
-    plt.plot(x_path, y_path, color='blue', linewidth='2.5')
-    plt.title('Shortest Path')
+    # Plot the shortest path
+    plt.plot(x_path, y_path, color='blue', linewidth='1.5')
+
     plt.show()
 
 
@@ -239,23 +242,30 @@ def plot_points(coord_list, indices, path):
 # Call read_coordinate_file and time its running time
 start = time.time()
 
-coord_list = read_coordinate_file(FILENAME)  # M
+coord_list = read_coordinate_file(FILENAME)
 
 end = time.time()
 
 read_coordinate_file_time = end - start
 
-# Call construct_graph_connections or construct_fast_graph_connections and time its running time
+# Call construct_graph_connections and time its running time
 start = time.time()
 
-# Replace this function with the function below to alternate between fast or slow
-# li_indices, li_distance = construct_graph_connections(coord_list, RADIUS) # J
+# Remove or comment the line below to exclude running the slower version of the function.
+li_indices, li_distance = construct_graph_connections(coord_list, RADIUS)
+
+end = time.time()
+
+construct_graph_connections_time = end - start
+
+# Call construct_fast_graph_connections and time its running time
+start = time.time()
 
 li_indices, li_distance = construct_fast_graph_connections(coord_list, RADIUS)
 
 end = time.time()
 
-construct_graph_connections_time = end - start
+construct_fast_graph_connections_time = end - start
 
 # N is the amount of cities
 N = len(coord_list)
@@ -263,7 +273,7 @@ N = len(coord_list)
 # Call construct_graph and time it
 start = time.time()
 
-graph = construct_graph(li_indices, li_distance, N)  # M
+graph = construct_graph(li_indices, li_distance, N)
 
 end = time.time()
 
@@ -289,7 +299,11 @@ plot_points_time = end - start
 
 # Save table with recorded times for each function to later print it out
 table = [["Functions", "Time (s)"], ["read_coordinate_file", read_coordinate_file_time],
-         ["construct_(fast)_graph_connections", construct_graph_connections_time],
+         ["construct_graph_connections", construct_graph_connections_time],
+         ["construct_fast_graph_connections", construct_fast_graph_connections_time],
          ["construct_graph", construct_graph_time],
          ["find_shortest_path", find_shortest_path_time], ["plot_points", plot_points_time]]
 print(tabulate(table))
+
+print(f'The path taken is: {path}')
+print(f"The path's distance is: {path_distance}")
