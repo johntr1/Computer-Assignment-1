@@ -22,7 +22,8 @@ END_NODE = 2
 
 
 # Collection of all written functions for this assignment
-def read_coordinate_file(FILENAME):
+
+def read_coordinate_file(FILENAME): #Skriva om så att allt händer i en loop och inte uppdelat flera fråga om detta.
     """This function reads a given file and parses the result into an array:
            FILENAME (string): The name of the file which the data is taken from.
 
