@@ -15,15 +15,24 @@ from scipy import spatial
 from tabulate import tabulate
 
 # Fixed variables given by the assignment
-FILENAME = 'GermanyCities.txt'
-RADIUS = 0.0025
-START_NODE = 31
-END_NODE = 2
+filename = 'GermanyCities.txt'
 
+if filename=='GermanyCities.txt':
+    radius = 0.0025
+    start_node = 31
+    end_node = 2
+elif filename=='HungaryCities.txt':
+    radius=0.05
+    start_node=311
+    end_node=702
+elif filename=='SampleCoordinate.txt':
+    radius=0.08
+    start_node=0
+    end_node=5
 
 # Collection of all written functions for this assignment
 
-def read_coordinate_file(FILENAME): #Skriva om så att allt händer i en loop och inte uppdelat flera fråga om detta.
+def read_coordinate_file(filename): #Skriva om så att allt händer i en loop och inte uppdelat flera fråga om detta.
     """This function reads a given file and parses the result into an array:
            FILENAME (string): The name of the file which the data is taken from.
 
@@ -31,7 +40,7 @@ def read_coordinate_file(FILENAME): #Skriva om så att allt händer i en loop oc
            coord_list (ndarray): A 2D ndarray with the x and y coordinates of the cities.
        """
     # Open file in read mode and get data
-    with open(f'{FILENAME}', mode='r') as file:
+    with open(f'{filename}', mode='r') as file:
         line = file.readline()
         # An empty string that can save the degree coordinates in
         l = ''
@@ -243,7 +252,7 @@ def plot_points(coord_list, indices, path):
 # Call read_coordinate_file and time its running time
 start = time.time()
 
-coord_list = read_coordinate_file(FILENAME)
+coord_list = read_coordinate_file(filename)
 
 end = time.time()
 
@@ -253,7 +262,7 @@ read_coordinate_file_time = end - start
 start = time.time()
 
 # Remove or comment the line below to exclude running the slower version of the function.
-li_indices, li_distance = construct_graph_connections(coord_list, RADIUS)
+li_indices, li_distance = construct_graph_connections(coord_list, radius)
 
 end = time.time()
 
@@ -262,7 +271,7 @@ construct_graph_connections_time = end - start
 # Call construct_fast_graph_connections and time its running time
 start = time.time()
 
-li_indices, li_distance = construct_fast_graph_connections(coord_list, RADIUS)
+li_indices, li_distance = construct_fast_graph_connections(coord_list, radius)
 
 end = time.time()
 
@@ -283,7 +292,7 @@ construct_graph_time = end - start
 # Call find_shortest_path and time it
 start = time.time()
 
-path, path_distance = find_shortest_path(graph, START_NODE, END_NODE)
+path, path_distance = find_shortest_path(graph, start_node, end_node)
 
 end = time.time()
 
