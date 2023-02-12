@@ -22,13 +22,14 @@ if filename=='GermanyCities.txt':
     start_node = 31
     end_node = 2
 elif filename=='HungaryCities.txt':
-    radius=0.05
+    radius=0.005
     start_node=311
     end_node=702
-elif filename=='SampleCoordinate.txt':
+elif filename=='SampleCoordinates.txt':
     radius=0.08
     start_node=0
     end_node=5
+
 
 # Collection of all written functions for this assignment
 def read_coordinate_file(filename): #Skriva om så att allt händer i en loop och inte uppdelat flera fråga om detta.
@@ -41,39 +42,33 @@ def read_coordinate_file(filename): #Skriva om så att allt händer i en loop oc
     # Open file in read mode and get data
     with open(f'{filename}', mode='r') as file:
         line = file.readline()
+        R = 1
         # An empty string that can save the degree coordinates in
-        l = ''
+        list=[]
         while line:  # Removes everything that's not a number
             line = line.replace('{', '')
             line = line.replace('}', '')
             line = line.replace('\n', ',')
             # Adds it to a long string
-            l = l + line
+            # Splits the string and removes the last string which is empty
+            line = line.split(',')
+            line.pop()
+            line[0] = float(line[0])
+            line[1] = float(line[1])
+
+
+            x = R * np.pi * line[1] / 180
+            y = R * np.log(np.tan(np.pi / 4 + np.pi * line[0] / 360))
+
+            list = list + [[x,y]]
             line = file.readline()
-    # Splits the string and removes the last string which is empty
-    l = l.split(',')
-    l.pop()
     # Defines the right shape of the array and makes it with float as values
-    shape = (int(len(l) / 2), 2)
-    ab = np.empty(shape, dtype=float)
-    n = 0
-    # A for loop that fills the array with as [a b] from the list made
-    for i in l:
-        i = float(i)
-        if n % 2 == 0:
-            ab[int(n / 2)][0] = i
-        else:
-            ab[int(n / 2)][1] = i
-        n += 1
-    R = 1
-    coor = np.zeros(shape, dtype=float)
-    for a, b in enumerate(ab):  # A calculation loop to convert from degrees to x and y coordinates
-        coor[a][0] = R * np.pi * ab[a][1] / 180
-        coor[a][1] = R * np.log(np.tan(np.pi / 4 + np.pi * ab[a][0] / 360))
+    coor=np.array(list, dtype=float)
+    print(coor)
     return coor
 
 
-def construct_graph_connections(coord_list, RADIUS):
+def construct_graph_connections(coord_list, radius):
     """This function computes all connections between the cities' coordinates given a radius.
     Parameters:
         coord_list (ndarray): 2D ndarray of the cities' coordinates
@@ -103,7 +98,7 @@ def construct_graph_connections(coord_list, RADIUS):
             distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
             # Checks if the distance between the two cities are fulfilling the radius requirement
             # Appends the list of indices and the distance between them if true
-            if distance <= RADIUS:
+            if distance <= radius:
                 li_indices.append([i, j])
                 li_distance.append(distance)
     # Convert the lists to ndarrays
@@ -112,7 +107,7 @@ def construct_graph_connections(coord_list, RADIUS):
     return li_indices, li_distance
 
 
-def construct_fast_graph_connections(coord_list, RADIUS):
+def construct_fast_graph_connections(coord_list, radius):
     """This function computes all connections between the cities' coordinates given a radius.
     Parameters:
         coord_list (ndarray): 2D ndarray of the cities' coordinates
@@ -127,7 +122,7 @@ def construct_fast_graph_connections(coord_list, RADIUS):
     li_distance = []
     # Makes a KDTree then finds the points which are within the radius for each point
     tree = spatial.cKDTree(coord_list)
-    indices = tree.query_ball_point(coord_list, r=RADIUS)
+    indices = tree.query_ball_point(coord_list, r=radius)
     # For loop that converts the information to later make an array
     # also calculates and matches the distance with the connections
     for a, j in enumerate(indices):

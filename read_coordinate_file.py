@@ -37,9 +37,12 @@ def read_coordinate_file(filename):
         n+=1
     R=1
     coor=np.zeros(shape, dtype=float)
+    print(ab)
     for a in range(len(ab)):
         coor[a][0]=R*np.pi*ab[a][1]/180
         coor[a][1]=R*np.log(np.tan(np.pi/4 + np.pi*ab[a][0]/360))
+    print('coor')
+    print(coor)
     return coor
 
 
