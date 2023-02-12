@@ -31,7 +31,6 @@ elif filename=='SampleCoordinate.txt':
     end_node=5
 
 # Collection of all written functions for this assignment
-
 def read_coordinate_file(filename): #Skriva om så att allt händer i en loop och inte uppdelat flera fråga om detta.
     """This function reads a given file and parses the result into an array:
            FILENAME (string): The name of the file which the data is taken from.
@@ -262,7 +261,7 @@ read_coordinate_file_time = end - start
 start = time.time()
 
 # Remove or comment the line below to exclude running the slower version of the function.
-li_indices, li_distance = construct_graph_connections(coord_list, radius)
+#li_indices, li_distance = construct_graph_connections(coord_list, radius)
 
 end = time.time()
 
