@@ -64,7 +64,6 @@ def read_coordinate_file(filename): #Skriva om så att allt händer i en loop oc
             line = file.readline()
     # Defines the right shape of the array and makes it with float as values
     coor=np.array(list, dtype=float)
-    print(coor)
     return coor
 
 
